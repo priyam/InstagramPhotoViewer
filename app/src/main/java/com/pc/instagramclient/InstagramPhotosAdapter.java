@@ -1,24 +1,34 @@
 package com.pc.instagramclient;
 
 import android.content.Context;
+import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by priyam on 2/5/15.
  */
 public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
 
+    private static class ViewHolder {
+        TextView caption;
+        TextView userName;
+        TextView likesCount;
+        TextView creationTime;
+        ImageView photo;
+        ImageView userPic;
+
+    }
     //What data do we need from the activity ??
     //Context, Data Siyrce
     public InstagramPhotosAdapter(Context context, List<InstagramPhoto> objects) {
@@ -33,22 +43,48 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
     public View getView(int position, View convertView, ViewGroup parent) {
         //Get the data item for the position
         InstagramPhoto photo = getItem(position);
+        ViewHolder viewHolder;
+
         //check if we are using the recycled view, if not we need to inflate
         if (convertView == null)
         {
+            viewHolder = new ViewHolder();
             //create a new view from template
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_photo, parent, false);
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            convertView = inflater.inflate(R.layout.item_photo, parent, false);
+            //lookup the views for populating the data (image, caption) and set the viewHolder
+            viewHolder.caption = (TextView) convertView.findViewById(R.id.tvCaption);
+            viewHolder.photo = (ImageView) convertView.findViewById(R.id.ivPhoto);
+            viewHolder.userName = (TextView) convertView.findViewById(R.id.tvUserName);
+            viewHolder.likesCount = (TextView) convertView.findViewById(R.id.tvLikes);
+            viewHolder.creationTime = (TextView) convertView.findViewById(R.id.tvTime);
+            viewHolder.userPic = (ImageView) convertView.findViewById(R.id.ivUserPic);
+            convertView.setTag(viewHolder);
+
+
         }
-        //lookup the views for populating the data (image, caption)
-        TextView tvCaption = (TextView) convertView.findViewById(R.id.tvCaption);
-        ImageView ivPhoto = (ImageView) convertView.findViewById(R.id.ivPhoto);
-        //insert the model data into each of the view item
-        tvCaption.setText(photo.caption);
+        else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+
+        // Populate the data into the template view using the data object
+        // insert the model data into each of the view item
+        viewHolder.caption.setText(photo.getCaption());
+        viewHolder.userName.setText(photo.getUsername());
+        viewHolder.likesCount.setText(photo.getLikesCount() + " Likes");
+        String relativeTime = DateUtils.getRelativeTimeSpanString(photo.getCreatedTime()*1000, System.currentTimeMillis(), DateUtils.FORMAT_ABBREV_ALL).toString();
+        viewHolder.creationTime.setText(relativeTime);
         //clear out the image view
-        ivPhoto.setImageResource(0);
+        viewHolder.photo.setImageResource(0);
+        viewHolder.userPic .setImageResource(0);
         //insert the image using picasso
-        Picasso.with(getContext()).load(photo.imageUrl).into(ivPhoto);
+        Picasso.with(getContext()).load(photo.getImageUrl()).into(viewHolder.photo);
+        Picasso.with(getContext()).load(photo.getUserPicUrl()).into(viewHolder.userPic);
+
+
         //return the created item as a view
         return convertView;
     }
+
+
 }

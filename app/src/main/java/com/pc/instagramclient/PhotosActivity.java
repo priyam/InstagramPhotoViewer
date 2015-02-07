@@ -2,7 +2,6 @@ package com.pc.instagramclient;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -15,7 +14,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URL;
 import java.util.ArrayList;
 
 
@@ -85,12 +83,15 @@ public class PhotosActivity extends ActionBarActivity {
                         //decode the attributes of the JSON into the data model
 
                         InstagramPhoto photo = new InstagramPhoto();
-                        photo.username = photoJSON.getJSONObject("user").getString("username");
-                        photo.caption = photoJSON.getJSONObject("caption").getString("text");
-                        photo.imageUrl = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
-                        photo.imageHeight = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");
-                        photo.likesCount = photoJSON.getJSONObject("likes").getInt("count");
-
+                        photo.setUsername(photoJSON.getJSONObject("user").getString("username"));
+                        photo.setCaption(photoJSON.getJSONObject("caption").getString("text"));
+                        photo.setImageUrl(photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url"));
+                        photo.setImageHeight(photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("height"));
+                        photo.setImageWidth(photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("width"));
+                        photo.setLikesCount(photoJSON.getJSONObject("likes").getInt("count"));
+                        photo.setUserPicUrl(photoJSON.getJSONObject("user").getString("profile_picture"));
+                        photo.setLikesCount(photoJSON.getJSONObject("likes").getInt("count"));
+                        photo.setCreatedTime(photoJSON.getLong("created_time"));
                         photos.add(photo);
                     }
 
