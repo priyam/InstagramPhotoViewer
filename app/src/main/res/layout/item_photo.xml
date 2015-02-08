@@ -5,30 +5,58 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
         android:id="@+id/ivUserPic"
+        android:scaleType="centerCrop"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Username Text"
         android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
         android:id="@+id/tvUserName"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/ivUserPic"
-        android:layout_toEndOf="@+id/ivUserPic" />
+        android:layout_toEndOf="@+id/ivUserPic"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:text="Time text"
+        android:id="@+id/tvTime"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="5dp"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/tvTime"
+        android:layout_toStartOf="@+id/tvTime"
+        android:src="@drawable/clock_icon" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
         android:id="@+id/ivPhoto"
         android:layout_below="@+id/ivUserPic"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:adjustViewBounds="true"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:minHeight="50dp"/>
 
     <ImageView
@@ -45,13 +73,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Likes Text"
-        android:textStyle="bold"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@android:color/holo_blue_dark"
         android:id="@+id/tvLikes"
         android:layout_below="@+id/ivPhoto"
         android:layout_toRightOf="@+id/ivLikes"
-        android:textSize="20sp"
-        android:maxLines="3"
+        android:textSize="15sp"
+        android:maxLines="1"
         android:ellipsize="end"
         />
 
@@ -63,27 +90,10 @@
         android:layout_below="@+id/tvLikes"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:typeface="serif"
         android:textSize="20sp"
         android:maxLines="3"
         android:ellipsize="end"
         />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Time text"
-        android:id="@+id/tvTime"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="18dp"
-        android:id="@+id/imageView"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/tvTime"
-        android:layout_toStartOf="@+id/tvTime"
-        android:src="@drawable/clock_icon" />
 
 </RelativeLayout>

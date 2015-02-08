@@ -1,10 +1,12 @@
 package com.pc.instagramclient;
 
+import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -28,7 +30,6 @@ public class PhotosActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photos);
-
         photos = new ArrayList<>();
         //1. Create the adapter linking it to the resource
         aPhotos = new InstagramPhotosAdapter(this, photos);
@@ -42,6 +43,20 @@ public class PhotosActivity extends ActionBarActivity {
         //Send out API Requests to POPULAR PHOTOS
         fetchPopularPhotos();
 
+        /*TextView tvCaptions = (TextView) findViewById(R.id.tvCaption);
+        // Create the TypeFace from the TTF asset
+        Typeface font = Typeface.createFromAsset(getAssets(), "customfont.ttf");
+        // Assign the typeface to the view
+        tvCaptions.setTypeface(font);*/
+
+        /*
+
+        TextView tvCaptions = (TextView) findViewById(R.id.tvCaption);
+        // Create the TypeFace from the TTF asset
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Chantelli_Antiqua.ttf");
+        // Assign the typeface to the view
+        tvCaptions.setTypeface(font);
+         */
     }
 
 

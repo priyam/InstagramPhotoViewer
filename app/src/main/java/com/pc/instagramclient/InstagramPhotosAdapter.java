@@ -1,6 +1,8 @@
 package com.pc.instagramclient;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.text.Html;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.view.LayoutInflater;
@@ -9,7 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.makeramen.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.util.Date;
 import java.util.List;
@@ -71,16 +76,28 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         // insert the model data into each of the view item
         viewHolder.caption.setText(photo.getCaption());
         viewHolder.userName.setText(photo.getUsername());
-        viewHolder.likesCount.setText(photo.getLikesCount() + " Likes");
-        String relativeTime = DateUtils.getRelativeTimeSpanString(photo.getCreatedTime()*1000, System.currentTimeMillis(), DateUtils.FORMAT_ABBREV_ALL).toString();
+
+        String formattedLikesText = "<b>"+photo.getLikesCount()+"</b>"+" <i>likes</i>";
+        viewHolder.likesCount.setText(Html.fromHtml(formattedLikesText));
+        String relativeTime = DateUtils.getRelativeTimeSpanString(photo.getCreatedTime() * 1000, System.currentTimeMillis(), DateUtils.FORMAT_ABBREV_ALL).toString();
         viewHolder.creationTime.setText(relativeTime);
         //clear out the image view
         viewHolder.photo.setImageResource(0);
         viewHolder.userPic .setImageResource(0);
         //insert the image using picasso
         Picasso.with(getContext()).load(photo.getImageUrl()).into(viewHolder.photo);
-        Picasso.with(getContext()).load(photo.getUserPicUrl()).into(viewHolder.userPic);
 
+        //User roundedImageTransformation for displaying user pic
+        Transformation transformation = new RoundedTransformationBuilder()
+                .borderColor(Color.BLACK)
+                .borderWidthDp(1)
+                .cornerRadiusDp(30)
+                .oval(false)
+                .build();
+
+        Picasso.with(getContext()).load(photo.getUserPicUrl()).transform(transformation).into(viewHolder.userPic);
+        //Without rounded image
+        //Picasso.with(getContext()).load(photo.getUserPicUrl()).into(viewHolder.userPic);
 
         //return the created item as a view
         return convertView;
