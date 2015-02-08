@@ -2,6 +2,7 @@ package com.pc.instagramclient;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.text.format.Time;
@@ -20,10 +21,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Created by priyam on 2/5/15.
- */
 public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
+
+    private static Typeface font;
 
     private static class ViewHolder {
         TextView caption;
@@ -38,6 +38,8 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
     //Context, Data Siyrce
     public InstagramPhotosAdapter(Context context, List<InstagramPhoto> objects) {
         super(context, android.R.layout.simple_list_item_1, objects);
+        // Create the TypeFace from the TTF asset
+       font = Typeface.createFromAsset(getContext().getAssets(), "fonts/OpenSans-Regular.ttf");
     }
 
     //what our item looks like
@@ -64,6 +66,9 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
             viewHolder.likesCount = (TextView) convertView.findViewById(R.id.tvLikes);
             viewHolder.creationTime = (TextView) convertView.findViewById(R.id.tvTime);
             viewHolder.userPic = (ImageView) convertView.findViewById(R.id.ivUserPic);
+
+            // Assign the typeface to the view
+            viewHolder.caption.setTypeface(font);
             convertView.setTag(viewHolder);
 
 
@@ -75,6 +80,7 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         // Populate the data into the template view using the data object
         // insert the model data into each of the view item
         viewHolder.caption.setText(photo.getCaption());
+
         viewHolder.userName.setText(photo.getUsername());
 
         String formattedLikesText = "<b>"+photo.getLikesCount()+"</b>"+" <i>likes</i>";

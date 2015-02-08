@@ -49,14 +49,6 @@ public class PhotosActivity extends ActionBarActivity {
         // Assign the typeface to the view
         tvCaptions.setTypeface(font);*/
 
-        /*
-
-        TextView tvCaptions = (TextView) findViewById(R.id.tvCaption);
-        // Create the TypeFace from the TTF asset
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Chantelli_Antiqua.ttf");
-        // Assign the typeface to the view
-        tvCaptions.setTypeface(font);
-         */
     }
 
 
