@@ -1,6 +1,7 @@
 package com.pc.instagramclient;
 
 import android.graphics.Typeface;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -21,6 +22,8 @@ import java.util.ArrayList;
 
 public class PhotosActivity extends ActionBarActivity {
 
+    //private SwipeRefreshLayout swipeContainer;
+
     public static final String CLIENT_ID = "1e606bcce9b2496fa684e60e615d534b";
 
     private ArrayList<InstagramPhoto> photos;
@@ -30,6 +33,9 @@ public class PhotosActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photos);
+
+        //swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+
         photos = new ArrayList<>();
         //1. Create the adapter linking it to the resource
         aPhotos = new InstagramPhotosAdapter(this, photos);
@@ -43,12 +49,15 @@ public class PhotosActivity extends ActionBarActivity {
         //Send out API Requests to POPULAR PHOTOS
         fetchPopularPhotos();
 
-        /*TextView tvCaptions = (TextView) findViewById(R.id.tvCaption);
-        // Create the TypeFace from the TTF asset
-        Typeface font = Typeface.createFromAsset(getAssets(), "customfont.ttf");
-        // Assign the typeface to the view
-        tvCaptions.setTypeface(font);*/
-
+        // Setup refresh listener which triggers new data loading
+        /*swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                fetchPopularPhotos();
+            }
+        });*/
     }
 
 
@@ -79,6 +88,7 @@ public class PhotosActivity extends ActionBarActivity {
 
                 //Iterate each of photo items and decode the item into java object
 
+                //swipeContainer.setRefreshing(true);
                 JSONArray photosJSON = null;
 
                 try {
@@ -106,6 +116,8 @@ public class PhotosActivity extends ActionBarActivity {
                 {
                     e.printStackTrace();
                 }
+                //swipeContainer.setRefreshing(false);
+
                 //callback
                 aPhotos.notifyDataSetChanged();
             }
