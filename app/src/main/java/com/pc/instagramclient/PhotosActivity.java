@@ -22,26 +22,27 @@ import java.util.ArrayList;
 
 public class PhotosActivity extends ActionBarActivity {
 
-    //private SwipeRefreshLayout swipeContainer;
+    private SwipeRefreshLayout swipeContainer;
 
     public static final String CLIENT_ID = "1e606bcce9b2496fa684e60e615d534b";
 
     private ArrayList<InstagramPhoto> photos;
     private InstagramPhotosAdapter aPhotos;
 
+    ListView lvPhotos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photos);
 
-        //swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
 
         photos = new ArrayList<>();
         //1. Create the adapter linking it to the resource
         aPhotos = new InstagramPhotosAdapter(this, photos);
 
         //2. find the listview from the layout
-        ListView lvPhotos = (ListView) findViewById(R.id.lvPhotos);
+        lvPhotos = (ListView) findViewById(R.id.lvPhotos);
 
         //3. Set the adapter binding it to the listview
         lvPhotos.setAdapter(aPhotos);
@@ -50,14 +51,14 @@ public class PhotosActivity extends ActionBarActivity {
         fetchPopularPhotos();
 
         // Setup refresh listener which triggers new data loading
-        /*swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
                 fetchPopularPhotos();
             }
-        });*/
+        });
     }
 
 
@@ -90,6 +91,7 @@ public class PhotosActivity extends ActionBarActivity {
 
                 //swipeContainer.setRefreshing(true);
                 JSONArray photosJSON = null;
+                aPhotos.clear();
 
                 try {
                     photosJSON = response.getJSONArray("data");
@@ -116,8 +118,10 @@ public class PhotosActivity extends ActionBarActivity {
                 {
                     e.printStackTrace();
                 }
-                //swipeContainer.setRefreshing(false);
+                swipeContainer.setRefreshing(false);
 
+                lvPhotos.setAdapter(aPhotos);
+                lvPhotos.setAdapter(aPhotos);
                 //callback
                 aPhotos.notifyDataSetChanged();
             }
@@ -150,4 +154,5 @@ public class PhotosActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

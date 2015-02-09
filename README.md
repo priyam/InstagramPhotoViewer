@@ -14,6 +14,7 @@ Completed user stories:
  * [x] Optional: extra information displayed like relative timestamp, like count, user profile image
  * [x] Optional: Advanced: Display each user profile image using a RoundedImageView
  * [x] Optional: Advanced: Improve the user interface through styling and coloring
+ * [x] Optional: Advanced: Add pull-to-refresh for popular stream with SwipeRefreshLayout
  
 Notes:
 
