@@ -23,6 +23,6 @@ Question: I added the layout and followed the guide and i even see the icon when
 
 Walkthrough of all user stories:
 
-![Video Walkthrough](demo-instagram_photoviewer.gif)
+![Video Walkthrough](demo-instagram_photoviewer2.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
