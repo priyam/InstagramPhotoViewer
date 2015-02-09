@@ -9,6 +9,7 @@ Time spent: 10 hours spent in total
 
 Completed user stories:
 
+ * [x] Required: User can scroll through current popular photos from Instagram  
  * [x] Required: For each photo displayed, user can see the following details:Graphic, Caption, Username
  * [x] Optional: extra information displayed like relative timestamp, like count, user profile image
  * [x] Optional: Advanced: Display each user profile image using a RoundedImageView
